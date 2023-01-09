@@ -18,13 +18,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 public class ApiWA {
-    private static String APIURL = "https://wbapi.autochat.io/2fe2df3a-fbe6-4246-83fc-8d73507a3e16";
+    private static String APIURL = "https://wbapi.autochat.io/2fe2df3a-fbe6-4246-83fc-8d73507a3e16/";
     private static String TOKEN = "U7ZFAIYqGlzekYdiMIoeWQ";
 
 
-    public static CompletableFuture<Void> postJSON(URI uri,
-                                                   Map<String,String> map)
-            throws IOException
+    public static CompletableFuture<Void> postJSON(URI uri, Map<String,String> map) throws IOException
     {
         ObjectMapper objectMapper = new ObjectMapper();
         String requestBody = objectMapper
@@ -35,7 +33,7 @@ public class ApiWA {
                 .header("Content-Type", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(requestBody))
                 .build();
-
+        System.out.println("Final "+request);
         return HttpClient.newHttpClient()
                 .sendAsync(request, HttpResponse.BodyHandlers.ofString())
                 .thenApply(HttpResponse::statusCode)
@@ -44,6 +42,7 @@ public class ApiWA {
 
     public static void sendChatId(String chat_id) throws IOException {
         URI uri = URI.create(APIURL + "sendMessage?token=" + TOKEN);
+        System.out.println("Called");
         Map<String, String> map = new HashMap<String, String>();
         map.put("body", "Your ID: " + chat_id);
         map.put("phone", chat_id);
