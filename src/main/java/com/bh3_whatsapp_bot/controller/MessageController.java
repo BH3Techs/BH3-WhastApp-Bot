@@ -13,15 +13,17 @@ import java.io.IOException;
  **/
 
 @RestController
-@RequestMapping("localhost:8080/webhook")
+@RequestMapping("/webhook/")
 public class MessageController {
     @PostMapping
     public String AnswerWebhook(@RequestBody RequestWebHook hook) throws IOException {
+
         for (var message : hook.getMessages()) {
             if (message.getFromMe())
                 continue;
 
             String option = message.getBody().split(" ")[0].toLowerCase();
+            System.out.println("Honawo"+option);
             switch (option)
             {
                 case "chatid":
