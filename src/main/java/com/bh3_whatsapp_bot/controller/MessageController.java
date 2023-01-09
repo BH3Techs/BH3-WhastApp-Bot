@@ -1,8 +1,9 @@
 package com.bh3_whatsapp_bot.controller;
 
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
+
 
 /**
  * 9/1/2023
@@ -10,11 +11,12 @@ import org.springframework.web.bind.annotation.RestController;
  * @author bhugs -"Howard Mabhugu"
  * Bh3 WhatsApp bot
  **/
+
 @RestController
 @RequestMapping("localhost:8080/webhook")
 public class MessageController {
     @PostMapping
-    public String AnswerWebhook(@RequestBody RequestWebhook hook) throws IOException {
+    public String AnswerWebhook(@RequestBody RequestWebHook hook) throws IOException {
         for (var message : hook.getMessages()) {
             if (message.getFromMe())
                 continue;
